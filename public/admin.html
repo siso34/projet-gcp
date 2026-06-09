@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+ 
+  
+
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Admin - GCB News</title>
+  <!-- Font Awesome pour les icônes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --black: #1a1a1a;
+      --grey-light: rgba(255,255,255,0.7);
+      --yellow: #ffd54f;
+      --orange: #ff9800;
+      --orange-dark: #ef6c00;
+
+      --radius: 14px;
+      --shadow: 0 12px 30px rgba(0,0,0,.08);
+      --shadow-soft: 0 8px 18px rgba(0,0,0,.06);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at center, #cb8823 0%, #ef6c00 50%, #c05a08 100%);
+      font-family: Arial, sans-serif;
+      color: var(--black);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px;
+      background: linear-gradient(90deg, #ff9800, #ef6c00);
+      height: 140px;
+    }
+    header .logo {
+      position: absolute;
+      left: 30px;
+      height: 100px;
+      max-height: 120px;
+      object-fit: contain;
+    }
+    header h1 {
+      color: white;
+      font-size: 38px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    /* ==== Sections ==== */
+    .form-section, .list-section {
+      background: var(--grey-light);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      margin: 20px;
+    }
+
+    /* ==== Formulaires ==== */
+    #newsForm {
+      display: grid;
+      gap: 12px;
+    }
+    input, textarea, select {
+      width: 100%;
+      background: var(--white);
+      border: 1px solid #d7baba;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(206,184,150,0.495);
+    }
+
+    /* ==== Boutons ==== */
+    button {
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--black);
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      box-shadow: 0 8px 18px rgba(255,152,0,.25);
+      transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover { filter: brightness(1.05); }
+    button.danger {
+      color: #fff;
+      background: linear-gradient(135deg, #9a403b, #b71c1c);
+    }
+
+    /* ==== Liste des news ==== */
+    #newsList {
+      display: grid;
+      gap: 14px;
+    }
+    .news-item {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #eee;
+    }
+    .news-item h3 {
+      margin: 0 0 6px;
+      color: var(--orange-dark);
+      font-size: 18px;
+    }
+    .news-item img {
+      max-width: 260px;
+      border-radius: 12px;
+      margin: 8px 0;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    /* ==== Badges Catégories ==== */
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-right: 8px;
+    }
+    .badge.rh       { background: linear-gradient(135deg, #42a5f5, #1976d2); }
+    .badge.projets  { background: linear-gradient(135deg, #66bb6a, #2e7d32); }
+    .badge.travaux  { background: linear-gradient(135deg, #ffa726, #ef6c00); }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="gcb.png" alt="Logo GCB" class="logo">
+    <h1>Admin Dashboard (Interface Admin)</h1>
+  </header>
+
+   <!-- Formulaire -->
+  <section class="form-section">
+    <form id="newsForm">
+      <select id="categorie" required>
+        <option value="">-- Choisir une catégorie --</option>
+        <option value="RH">RH</option>
+        <option value="Projets">Projets</option>
+        <option value="Travaux">Travaux</option>
+      </select>
+      <input type="text" id="titre" placeholder="Titre" required>
+      <input type="text" id="image" placeholder="URL de l'image">
+      <textarea id="contenu" placeholder="Contenu..." required></textarea>
+      <button type="submit"><i class="fas fa-plus"></i> Publier</button>
+    </form>
+  </section>
+
+  <!-- Liste des news -->
+  <section class="list-section">
+    <h2>Actualités publiées</h2>
+    <!-- ⚠️ Important : liste vide au départ, remplie par admin.js -->
+    <div id="newsList"></div>
+  </section>
+    <script src="admin.js"></script>
+</body>
+</html>

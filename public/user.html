@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GCB News - Espace Utilisateur</title>
+<style>
+  /* -------------------- RESET -------------------- */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  :root {
+    --noir: #111;
+    --gris: #f4f6f8;
+    --orange: #ff9500;
+    --orange-2: #ffb300;
+    --texte: #333;
+  }
+  body { background: #fff; color: var(--texte); overflow-x: hidden; }
+
+  /* -------------------- HEADER -------------------- */
+  header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: linear-gradient(90deg, var(--noir), var(--orange));
+    color: white; padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4); z-index: 1000;
+  }
+  header h1 { font-size: 24px; font-weight: bold; letter-spacing: .3px; }
+  header h1 span { color: #ffcc00; }
+
+  nav {
+    display: flex;
+    align-items: center;
+   
+  }
+  nav input {
+    padding: 8px 12px;;
+    border-radius: 20px;
+    border: none;
+    outline: none; margin-right: 15px
+  }
+
+  /* Dropdown */
+  .dropbtn {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    min-width: 200px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .dropdown-content a {
+    color: white;
+    padding: 10px;
+    display: block;
+  }
+  .dropdown-content a:hover {
+    background-color: #555;
+  }
+  .dropdown-content.show {
+    display: block;
+  }
+
+  /* -------------------- SLIDER -------------------- */
+  .slider {
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+  }
+  .slides {
+    display: flex;
+    animation: slide 12s infinite;
+  }
+  .slides img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    filter: brightness(0.78);
+  }
+  .slider-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; text-align: center;
+    background: rgba(0,0,0,0.35);
+    padding: 16px 22px; border-radius: 12px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  }
+  .slider-title { font-size: 42px; font-weight: 800; }
+  .slider-subtitle { font-size: 16px; font-weight: 600; opacity: .95; }
+  @keyframes slide {
+    0% { transform: translateX(0); }
+    33% { transform: translateX(-100%); }
+    66% { transform: translateX(-200%); }
+    100% { transform: translateX(0); }
+  }
+
+  /* -------------------- NEWS GRID -------------------- */
+  .category-section {
+    padding: 30px 20px;
+    background: #fff;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .category-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+  .category-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .category-card .content {
+    padding: 15px;
+  }
+  .category-card h3 {
+    margin-bottom: 10px;
+    color: var(--orange);
+  }
+  .category-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  .category-card button {
+    background: linear-gradient(90deg, var(--noir), var(--orange));
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+  }
+  .category-card button:hover {
+    background: linear-gradient(90deg, var(--orange), var(--noir));
+  }
+
+
+
+  /* -------------------- RESPONSIVE -------------------- */
+  @media (max-width: 600px) {
+    header { flex-direction: column; align-items: flex-start; }
+    nav { flex-wrap: wrap; background: transparent; padding: 0; }
+    nav input { margin-bottom: 10px; }
+    .slider-text { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="image"><img src="gcb.png" width="90" height="95" alt="Logo GCB"></div>
+  <h1><span>GCB</span> News</h1>
+  <nav>
+     <input type="text" id="searchBar" placeholder="🔍 Rechercher...">
+    <div class="dropdown">
+      <button class="dropbtn" id="accueilBtn">Accueil</button>
+      <div class="dropdown-content" id="accueilMenu">
+        <a href="#">Page principale</a>
+        <a href="#">Dernières nouvelles</a>
+      </div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="dropbtn" id="categoriesBtn">Catégories</button>
+      <div class="dropdown-content" id="categoriesMenu">
+        <a href="#Travaux">Travaux</a>
+        <a href="#RH">RH</a>
+        <a href="#Projets">Projets</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn" id="contactBtn">Contact</button>
+      <div class="dropdown-content" id="contactMenu">
+        <a href="#">📞 024797688</a>
+        <a href="#">📍 Boulevard de L'ALN, 35000 Boumerdes</a>
+        <a href="#">✉ contact@gcb.dz</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- SLIDER -->
+<div class="slider">
+  <div class="slides">
+    <img src="https://plus.unsplash.com/premium_photo-1682724602925-f0264b85953f?q=80&w=1171&auto=format&fit=crop" alt="Chantier 1">
+    <img src="https://images.unsplash.com/photo-1503708928676-1cb796a0891e?q=80&w=1374&auto=format&fit=crop" alt="Chantier 2">
+    <img src="https://images.unsplash.com/photo-1625722662233-297060231b85?q=80&w=1170&auto=format&fit=crop" alt="Chantier 3">
+  </div>
+  <div class="slider-text">
+    <div class="slider-title">GCB Génie-Civil</div>
+    <div class="slider-subtitle">Actualités et innovations dans le BTP</div>
+  </div>
+</div>
+<section class="category-section">
+
+    <div class="category-card" data-categorie="RH">
+    <img src="https://images.unsplash.com/photo-1686771416282-3888ddaf249b?q=80&w=1171&auto=format&fit=crop" alt="RH chantier">
+    <div class="Contenu">
+      <h3>RH</h3>
+      <p>Gestion et organisation des équipes...</p>
+     
+    </div>
+    </div>
+  </div>
+
+  <div class="category-card" data-categorie="Projets">
+    <img src="https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=1170&auto=format&fit=crop" alt="Projet BTP">
+    <div class="contenu">
+      <h3>Projets</h3>
+      <p>Planification et suivi des projets...</p>
+      
+    </div>
+  </div>
+  <div class="category-card"  data-categorie="Travaux">
+    <img src="https://images.unsplash.com/photo-1588853326295-d49400a3d085?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Projet BTP">
+    <div class="contenu">
+      <h3>Travaux</h3>
+      <p>Les travaux  du port ont débuté avec une nouvelle infrastructure moderne...</p>
+
+    </div>
+  </div>
+</section>
+<p id="noResult" style="
+  text-align:center;
+  margin: 30px auto;
+  padding: 15px 25px;
+  max-width: 400px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #97624e, #ef860f);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: none;
+">
+  ❌ Aucun résultat trouvé
+</p>
+
+
+<script>
+  // Redirection vers actualites.html en fonction de la catégorie choisie
+  document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener("click", () => {
+      const categorie = card.dataset.categorie;
+      window.location.href = `actualite.html?categorie=${categorie}`;
+    });
+  });
+</script>
+
+
+<script src="user.js"></script>
+<script>
+  // Fonction pour basculer l'affichage des menus
+  function toggleMenu(buttonId, menuId) {
+    const button = document.getElementById(buttonId);
+    const menu = document.getElementById(menuId);
+
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      // Fermer tous les autres menus ouverts
+      document.querySelectorAll(".dropdown-content").forEach(m => {
+        if (m !== menu) m.classList.remove("show");
+      });
+      // Ouvrir/fermer le menu cliqué
+      menu.classList.toggle("show");
+    });
+  }
+
+  // Activer pour tous les menus
+  toggleMenu("accueilBtn", "accueilMenu");
+  toggleMenu("categoriesBtn", "categoriesMenu");
+  toggleMenu("contactBtn", "contactMenu");
+
+  // Fermer si on clique ailleurs
+  document.addEventListener("click", () => {
+    document.querySelectorAll(".dropdown-content").forEach(m => m.classList.remove("show"));
+  });
+  
+  
+  // Recherche dans les cartes
+  document.getElementById("searchBar").addEventListener("input", function() {
+    const search = this.value.toLowerCase();
+    const cards = document.querySelectorAll(".category-card");
+    let found = false;
+
+    cards.forEach(card => {
+      const titre = card.querySelector("h3").innerText.toLowerCase();
+      const texte = card.querySelector("p").innerText.toLowerCase();
+
+      if (titre.includes(search) || texte.includes(search)) {
+        card.style.display = "block"; 
+        found = true;
+      } else {
+        card.style.display = "none"; 
+      }
+    });
+
+    // Afficher ou masquer le message "Aucun résultat"
+    document.getElementById("noResult").style.display = found ? "none" : "block";
+  });
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ACTUALITES - GCB News</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+    header {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(90deg, #111, #ff9500);
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  margin: 0;
+}
+
+header h1 span {
+  color: #ffcc00;
+}
+
+header img {
+  height: 80px;
+}
+
+header .actu {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+
+
+
+    main { padding: 30px; }
+    h2 { margin-bottom: 20px; color: #ff9500; }
+    main h2 {
+  text-align: center;   /* centre horizontalement */
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ff9500;       /* garde ton orange */
+}
+
+
+    .news-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .news-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .news-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .news-card .contenu {
+      padding: 15px;
+    }
+    .news-card h3 {
+      margin-bottom: 10px;
+      color: #ff9500;
+    }
+    .news-card p {
+      font-size: 14px;
+      color: #555;
+    }
+       .lire-plus {
+  background: linear-gradient(90deg, #9e3434, #f59504);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.lire-plus:hover {
+  background: linear-gradient(90deg, #9e3434, #f59504);
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="image"><img src="gcb.png" width="90" height="95" alt="Logo GCB"></div>
+  <h1><span>GCB</span> News</h1>
+</header>
+
+<main>
+  <h2 id="titre-categorie">ACTUALITES</h2>
+  <div class="news-section"></div>
+</main>
+
+<!-- Script qui va charger les actualités -->
+<script src="user.js"></script>
+
+<script>
+  // Récupérer la catégorie depuis l'URL et charger les actus
+  const params = new URLSearchParams(window.location.search);
+  const categorie = params.get("categorie");
+
+  if (categorie) {
+    document.getElementById("titre-categorie").textContent = `ACTULITES - ${categorie}`;
+    loadCategory(categorie); // fonction définie dans user.js
+  }
+</script>
+
+</body>
+</html>
