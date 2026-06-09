@@ -21,6 +21,11 @@ app.get('/', (req, res) => {
 });
 
 // Connexion à MySQL
+console.log('MYSQL_HOST:', process.env.MYSQL_HOST);
+console.log('MYSQL_PORT:', process.env.MYSQL_PORT);
+console.log('MYSQL_USER:', process.env.MYSQL_USER);
+console.log('MYSQL_DATABASE:', process.env.MYSQL_DATABASE);
+
 const db = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT,
@@ -28,7 +33,6 @@ const db = mysql.createConnection({
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
 });
-
 db.connect((err) => {
     if (err) {
         console.error('❌ Erreur MySQL :', err.message);
